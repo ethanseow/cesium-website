@@ -1,0 +1,18 @@
+body {
+  background-image: url("../images/background.png");
+  background-size: cover;
+  margin-left: 8rem;
+  margin-right: 8rem;
+}
+
+.header {
+  display: grid;
+  grid-template-areas: "logo links";
+  grid-template-columns: 1fr 1fr;
+}
+.header .logo {
+  grid-area: "logo";
+}
+.header .links {
+  grid-area: "links";
+}/*# sourceMappingURL=main.css.map */

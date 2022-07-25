@@ -1,19 +1,73 @@
+html{
+    font-size:16px;
+}
 body {
     background-image: url('../images/background.png');
     background-size: cover;
-    margin-left:8rem;
-    margin-right:8rem;
+    margin:0 8rem;
 }
 .header {
     display:grid;
     grid-template-areas: 'logo links';
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1.25fr;
     
     .logo {
         grid-area: 'logo';
-    }   
+        width:20rem;
+    }
     .links {
         grid-area:'links';
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+        a {
+            padding: 1em;
+            font-size:1.75rem;
+            text-decoration: none;
+            color:white;
+        }
     }
-    
+}
+
+.text-animation {
+    margin:0.5em 0;
+    font-size: 5rem;
+    color:white;
+}
+#cesiumContainer {
+    margin:0 auto;
+    margin-bottom:3em;
+    padding:0.4rem;
+    width:75%;
+    background-color: white;
+    border-radius: 0.5rem;
+}
+
+.sliderParams{
+    width:75%;
+    margin: 0 auto;
+    .slider {
+        display:grid;
+        grid-template-areas: 
+        "title question"
+        "slider slider";
+        grid-template-columns: auto 1fr;
+        p {
+            color: white;
+            font-size:2rem;
+            grid-area: title;
+        }
+        svg {
+            grid-area: question;
+            justify-self: start;
+            align-self: center;
+            margin-left:1.5em;
+        }
+        input {
+            grid-area: slider;
+        }
+    }
+}
+.walker {
+    color:white;
 }

@@ -2,9 +2,15 @@ html{
     font-size:16px;
 }
 body {
+    margin:0 8rem;
+}
+.bg {
     background-image: url('../images/background.png');
     background-size: cover;
-    margin:0 8rem;
+    width:100%;
+    height:100%;
+    z-index: -999;
+    position:absolute;
 }
 .header {
     display:grid;
@@ -49,13 +55,15 @@ body {
     .slider {
         display:grid;
         grid-template-areas: 
-        "title question"
-        "slider slider";
-        grid-template-columns: auto 1fr;
+        "title question ."
+        "slider slider sliderValue";
+        grid-template-columns: auto 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
         p {
             color: white;
             font-size:2rem;
             grid-area: title;
+            margin:0 0;
         }
         svg {
             grid-area: question;
@@ -66,8 +74,70 @@ body {
         input {
             grid-area: slider;
         }
+        .sliderValue {
+            color:white;
+            font-size:1.5rem;
+            grid-area:sliderValue;
+        }
     }
 }
 .walker {
     color:white;
+    .textHeader {
+        font-size:1.5rem;
+        text-align: center;
+        svg{
+            width:0.75em;
+            height:0.75em;
+        }
+    }
+    .walkerInputs {
+        display:flex;
+        justify-content:center;
+        align-items: center;
+        .walkerInput{
+            padding:0.5em;
+            input {
+                width:2em;
+            }
+        }
+    }
+}
+
+.epoch {
+    color:white;
+    display:grid;
+    grid-template-areas: 
+    "textHeader textHeader"
+    "header ." 
+    "inputField1 inputField2"
+    ;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1.5rem;
+    width:30%;
+    margin:0 auto;
+
+    .textHeader {
+        grid-area: textHeader;
+        font-size:1.5rem;
+        text-align: center;
+        svg {
+            width:0.75em;
+            height:0.75em;
+        }
+    }
+    label {
+        grid-area:header;
+    }
+    #propDur {
+        grid-area: inputField1;
+    }
+    #calendarField {
+        grid-area:inputField2;
+    }
+    svg{
+        stroke:white;
+        fill:white;
+        justify-self: center;
+    }
 }

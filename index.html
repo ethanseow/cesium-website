@@ -10,6 +10,7 @@
     <link href="https://cesium.com/downloads/cesiumjs/releases/1.92/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
 </head>
 <body>
+    <div class="bg"></div>
     <div class="header">
         <svg class="logo" width="302" height="97" viewBox="0 0 302 97" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M43.4512 68.8133C37.5773 66.6991 31.5355 66.3739 25.9972 67.8376C22.1372 68.8134 18.445 70.7649 15.0885 73.2044L12.7389 75.156L12.0676 75.8065L13.578 77.1075C13.7458 77.1075 13.7458 77.2701 13.9137 77.4328C14.2493 77.758 14.585 77.9207 15.0885 78.2459L16.0954 78.8964L17.1024 78.0833C17.2702 77.9207 17.6059 77.5954 17.9415 77.4328C20.9624 74.9933 24.3189 73.367 27.8433 72.5539C32.3746 71.4154 37.2416 71.5781 42.1086 73.367C46.1364 74.8307 54.36 76.6196 64.2618 72.5539L64.5975 72.3912L65.1009 71.9033C65.1009 71.7407 65.2688 71.7407 65.4366 71.5781C66.2757 70.6023 67.1148 69.6265 67.7862 68.4881L71.1427 63.4465L65.7722 66.3739C57.8843 70.6023 50.6678 71.4154 43.4512 68.8133Z" fill="white"/>
@@ -41,43 +42,50 @@
             <svg class="question" width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M17 0C7.61016 0 0 7.61016 0 17C0 26.3898 7.61016 34 17 34C26.3898 34 34 26.3898 34 17C34 7.61016 26.3898 0 17 0ZM17 26.5625C15.8047 26.5625 14.875 25.6328 14.875 24.4375C14.875 23.2422 15.7449 22.3125 17 22.3125C18.1355 22.3125 19.125 23.2422 19.125 24.4375C19.125 25.6328 18.1355 26.5625 17 26.5625ZM21.5887 17.1328L18.5938 18.9922V19.125C18.5938 19.9883 17.8633 20.7188 17 20.7188C16.1367 20.7188 15.4062 19.9883 15.4062 19.125V18.0625C15.4062 17.5312 15.6719 17 16.2031 16.668L19.9883 14.4102C20.4531 14.1445 20.7188 13.6797 20.7188 13.1484C20.7188 12.3516 19.9949 11.6875 19.198 11.6875H15.8047C14.948 11.6875 14.3438 12.3516 14.3438 13.1484C14.3438 14.0117 13.6133 14.7422 12.75 14.7422C11.8867 14.7422 11.1562 14.0117 11.1562 13.1484C11.1562 10.5586 13.2148 8.5 15.7449 8.5H19.1383C21.8477 8.5 23.9062 10.5586 23.9062 13.1484C23.9062 14.7422 23.043 16.2695 21.5887 17.1328Z" fill="white"/>
             </svg>
-            <input type="range" min="1" max="100" value="50" class="slider" class="sliderInput">
+            <input type="range" min="0" max="5000" value="2500" class="slider" class="sliderInput" id="commThreshSlider">
+            <p class="sliderValue" id="commThreshValue"></p>
         </div>
     </div>
     <div class="walker">
-        <h2>Walker Input</h2>
-        <svg class="question" width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M17 0C7.61016 0 0 7.61016 0 17C0 26.3898 7.61016 34 17 34C26.3898 34 34 26.3898 34 17C34 7.61016 26.3898 0 17 0ZM17 26.5625C15.8047 26.5625 14.875 25.6328 14.875 24.4375C14.875 23.2422 15.7449 22.3125 17 22.3125C18.1355 22.3125 19.125 23.2422 19.125 24.4375C19.125 25.6328 18.1355 26.5625 17 26.5625ZM21.5887 17.1328L18.5938 18.9922V19.125C18.5938 19.9883 17.8633 20.7188 17 20.7188C16.1367 20.7188 15.4062 19.9883 15.4062 19.125V18.0625C15.4062 17.5312 15.6719 17 16.2031 16.668L19.9883 14.4102C20.4531 14.1445 20.7188 13.6797 20.7188 13.1484C20.7188 12.3516 19.9949 11.6875 19.198 11.6875H15.8047C14.948 11.6875 14.3438 12.3516 14.3438 13.1484C14.3438 14.0117 13.6133 14.7422 12.75 14.7422C11.8867 14.7422 11.1562 14.0117 11.1562 13.1484C11.1562 10.5586 13.2148 8.5 15.7449 8.5H19.1383C21.8477 8.5 23.9062 10.5586 23.9062 13.1484C23.9062 14.7422 23.043 16.2695 21.5887 17.1328Z" fill="white"/>
-        </svg>
-        <span class="walkerInput">
-            <label for="IWalker">I</label>
-            <input type="text" id="IWalker" name="IWalker"><br><br>
-        </span>
-        <span class="walkerInput">
-            <label for="TWalker">T</label>
-            <input type="text" id="TWalker" name="TWalker"><br><br>
-        </span>
-        <span class="walkerInput">
-            <label for="PWalker">P</label>
-            <input type="text" id="PWalker" name="PWalker"><br><br>
-        </span>
-        <span class="walkerInput">
-            <label for="FWalker">F</label>
-            <input type="text" id="FWalker" name="FWalker"><br><br>
-        </span>
-        <span class="walkerInput">
-            <label for="AltWalker">Alt</label>
-            <input type="text" id="AltWalker" name="AltWalker"><br><br>
-        </span>
+        <div class="textHeader">
+            <span>Walker Input</span>
+            <svg class="question" width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 0C7.61016 0 0 7.61016 0 17C0 26.3898 7.61016 34 17 34C26.3898 34 34 26.3898 34 17C34 7.61016 26.3898 0 17 0ZM17 26.5625C15.8047 26.5625 14.875 25.6328 14.875 24.4375C14.875 23.2422 15.7449 22.3125 17 22.3125C18.1355 22.3125 19.125 23.2422 19.125 24.4375C19.125 25.6328 18.1355 26.5625 17 26.5625ZM21.5887 17.1328L18.5938 18.9922V19.125C18.5938 19.9883 17.8633 20.7188 17 20.7188C16.1367 20.7188 15.4062 19.9883 15.4062 19.125V18.0625C15.4062 17.5312 15.6719 17 16.2031 16.668L19.9883 14.4102C20.4531 14.1445 20.7188 13.6797 20.7188 13.1484C20.7188 12.3516 19.9949 11.6875 19.198 11.6875H15.8047C14.948 11.6875 14.3438 12.3516 14.3438 13.1484C14.3438 14.0117 13.6133 14.7422 12.75 14.7422C11.8867 14.7422 11.1562 14.0117 11.1562 13.1484C11.1562 10.5586 13.2148 8.5 15.7449 8.5H19.1383C21.8477 8.5 23.9062 10.5586 23.9062 13.1484C23.9062 14.7422 23.043 16.2695 21.5887 17.1328Z" fill="white"/>
+            </svg>
+        </div>
+        <div class="walkerInputs">
+            <div class="walkerInput">
+                <label for="IWalker">I</label>
+                <input type="text" id="IWalker" name="IWalker">
+            </div>
+            <div class="walkerInput">
+                <label for="TWalker">T</label>
+                <input type="text" id="TWalker" name="TWalker">
+            </div>
+            <div class="walkerInput">
+                <label for="PWalker">P</label>
+                <input type="text" id="PWalker" name="PWalker">
+            </div>
+            <div class="walkerInput">
+                <label for="FWalker">F</label>
+                <input type="text" id="FWalker" name="FWalker">
+            </div>
+            <div class="walkerInput">
+                <label for="AltWalker">Alt</label>
+                <input type="text" id="AltWalker" name="AltWalker">
+            </div>
+        </div>
     </div>
     <div class="epoch">
-        <h2>Epoch</h2>
-        <svg class="question" width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div class="textHeader">
+            <span>Epoch</span>
+            <svg class="question" width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M17 0C7.61016 0 0 7.61016 0 17C0 26.3898 7.61016 34 17 34C26.3898 34 34 26.3898 34 17C34 7.61016 26.3898 0 17 0ZM17 26.5625C15.8047 26.5625 14.875 25.6328 14.875 24.4375C14.875 23.2422 15.7449 22.3125 17 22.3125C18.1355 22.3125 19.125 23.2422 19.125 24.4375C19.125 25.6328 18.1355 26.5625 17 26.5625ZM21.5887 17.1328L18.5938 18.9922V19.125C18.5938 19.9883 17.8633 20.7188 17 20.7188C16.1367 20.7188 15.4062 19.9883 15.4062 19.125V18.0625C15.4062 17.5312 15.6719 17 16.2031 16.668L19.9883 14.4102C20.4531 14.1445 20.7188 13.6797 20.7188 13.1484C20.7188 12.3516 19.9949 11.6875 19.198 11.6875H15.8047C14.948 11.6875 14.3438 12.3516 14.3438 13.1484C14.3438 14.0117 13.6133 14.7422 12.75 14.7422C11.8867 14.7422 11.1562 14.0117 11.1562 13.1484C11.1562 10.5586 13.2148 8.5 15.7449 8.5H19.1383C21.8477 8.5 23.9062 10.5586 23.9062 13.1484C23.9062 14.7422 23.043 16.2695 21.5887 17.1328Z" fill="white"/>
-        </svg>
+            </svg>
+        </div>
         <label for="propDur">Propagation Duration</label>
-        <input type="text" name="propDur" id="propDur">
-        <input type="text" name="calendarField" id="calendarField">
+        <input type="text" name="propDur" id="propDur" placeholder="Days">
+        <input type="text" name="calendarField" id="calendarField" placeholder="Enter a date">
         <svg width="26" class="calendar" height="30" viewBox="0 0 26 30" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0.512451 27.9375C0.512451 28.5598 0.96669 29.0625 1.52893 29.0625H24.908C25.4702 29.0625 25.9244 28.5598 25.9244 27.9375V13.1719H0.512451V27.9375ZM24.908 3.46875H19.5714V1.21875C19.5714 1.06406 19.4571 0.9375 19.3173 0.9375H17.5385C17.3987 0.9375 17.2844 1.06406 17.2844 1.21875V3.46875H9.15252V1.21875C9.15252 1.06406 9.03817 0.9375 8.8984 0.9375H7.11957C6.9798 0.9375 6.86545 1.06406 6.86545 1.21875V3.46875H1.52893C0.96669 3.46875 0.512451 3.97148 0.512451 4.59375V10.7812H25.9244V4.59375C25.9244 3.97148 25.4702 3.46875 24.908 3.46875Z" fill="black"/>
         </svg>
@@ -88,5 +96,15 @@
     </div>
     <button class="submit">Submit</button>
     <script src="./js/viewer.js"></script>
+    <script>
+        var commThreshSlider = document.getElementById('commThreshSlider')
+        var commThreshValue = document.getElementById('commThreshValue')
+
+        commThreshValue.innerHTML = commThreshSlider.value
+
+        commThreshSlider.oninput = () => {
+            commThreshValue.innerHTML = commThreshSlider.value
+        }
+    </script>
 </body>
 </html>

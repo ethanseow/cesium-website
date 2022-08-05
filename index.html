@@ -8,8 +8,42 @@
     <link rel="stylesheet" href="./css/main.css">
     <script src="https://cesium.com/downloads/cesiumjs/releases/1.92/Build/Cesium/Cesium.js"></script>
     <link href="https://cesium.com/downloads/cesiumjs/releases/1.92/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!--<script src="./js/onload.js" type="module"></script>-->
+    <script>
+        const init = ()=>{
+    commThresh = document.getElementById('commThreshSlider')
+
+    conicSensor = document.getElementById('conicSensorSlider')
+
+    gsThresh = document.getElementById('gsThreshSlider')
+
+    IWalker = document.getElementById('IWalker')
+    TWalker = document.getElementById('TWalker')
+    PWalker = document.getElementById('PWalker')
+    FWalker = document.getElementById('FWalker')
+    AltWalker = document.getElementById('AltWalker')
+    propDur = document.getElementById('propDur')
+    calendarField = document.getElementById('calendarField')
+
+    groundStationField = document.getElementById('groundStationField')
+
+    commCheckBox = document.getElementById('commCheckBox')
+    conicCheckBox = document.getElementById('conicCheckBox')
+    gsCheckBox = document.getElementById('gsCheckBox')
+    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhZDJlZjUzOC05NTk5LTRlNjEtYjQzZS00YWM5N2ZiYWIyNDUiLCJpZCI6OTc5ODQsImlhdCI6MTY1NTQ4NDU5OX0.kwtnbKrsGyQq2bq1C0st-oyXj8yBPhS42LBliNP-F14'
+    viewer = new Cesium.Viewer("cesiumContainer", {
+            shouldAnimate: true,
+    })    
+    const defaultDataSource = Cesium.CzmlDataSource.load(simple)
+    viewer.dataSources.add(
+        defaultDataSource
+    );
+}
+    </script>
 </head>
-<body>
+
+<body onload="init();">
     <div class="bg"></div>
     <div class="header">
         <svg class="logo" width="302" height="97" viewBox="0 0 302 97" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -33,18 +67,38 @@
     <div class="text-animation">
         Visualize the possibilities
     </div>
-    <div class="test-container">
-    <div id="cesiumContainer" class="fullSize"></div>
+    <div id="cesiumContainer" class="fullSize">
+        <div class="loading"></div>
     </div>
-    <div class="sliderParams">
+        <div class="sliderParams">
         <div class="slider">
             <p>Intersatellite Communication Threshold</p>
+            <input type="checkbox" class='checkbox'id="commCheckBox">
             <svg class="question" width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M17 0C7.61016 0 0 7.61016 0 17C0 26.3898 7.61016 34 17 34C26.3898 34 34 26.3898 34 17C34 7.61016 26.3898 0 17 0ZM17 26.5625C15.8047 26.5625 14.875 25.6328 14.875 24.4375C14.875 23.2422 15.7449 22.3125 17 22.3125C18.1355 22.3125 19.125 23.2422 19.125 24.4375C19.125 25.6328 18.1355 26.5625 17 26.5625ZM21.5887 17.1328L18.5938 18.9922V19.125C18.5938 19.9883 17.8633 20.7188 17 20.7188C16.1367 20.7188 15.4062 19.9883 15.4062 19.125V18.0625C15.4062 17.5312 15.6719 17 16.2031 16.668L19.9883 14.4102C20.4531 14.1445 20.7188 13.6797 20.7188 13.1484C20.7188 12.3516 19.9949 11.6875 19.198 11.6875H15.8047C14.948 11.6875 14.3438 12.3516 14.3438 13.1484C14.3438 14.0117 13.6133 14.7422 12.75 14.7422C11.8867 14.7422 11.1562 14.0117 11.1562 13.1484C11.1562 10.5586 13.2148 8.5 15.7449 8.5H19.1383C21.8477 8.5 23.9062 10.5586 23.9062 13.1484C23.9062 14.7422 23.043 16.2695 21.5887 17.1328Z" fill="white"/>
             </svg>
-            <input type="range" min="0" max="5000" value="2500" class="slider" class="sliderInput" id="commThreshSlider">
+            <input type="range" min="0" max="5000" value="2500" class="sliderInput" id="commThreshSlider">
             <p class="sliderValue" id="commThreshValue"></p>
         </div>
+        <div class="slider">
+            <p>Conic Sensors</p>
+            <input type="checkbox" class='checkbox' id="conicCheckBox">
+            <svg class="question" width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 0C7.61016 0 0 7.61016 0 17C0 26.3898 7.61016 34 17 34C26.3898 34 34 26.3898 34 17C34 7.61016 26.3898 0 17 0ZM17 26.5625C15.8047 26.5625 14.875 25.6328 14.875 24.4375C14.875 23.2422 15.7449 22.3125 17 22.3125C18.1355 22.3125 19.125 23.2422 19.125 24.4375C19.125 25.6328 18.1355 26.5625 17 26.5625ZM21.5887 17.1328L18.5938 18.9922V19.125C18.5938 19.9883 17.8633 20.7188 17 20.7188C16.1367 20.7188 15.4062 19.9883 15.4062 19.125V18.0625C15.4062 17.5312 15.6719 17 16.2031 16.668L19.9883 14.4102C20.4531 14.1445 20.7188 13.6797 20.7188 13.1484C20.7188 12.3516 19.9949 11.6875 19.198 11.6875H15.8047C14.948 11.6875 14.3438 12.3516 14.3438 13.1484C14.3438 14.0117 13.6133 14.7422 12.75 14.7422C11.8867 14.7422 11.1562 14.0117 11.1562 13.1484C11.1562 10.5586 13.2148 8.5 15.7449 8.5H19.1383C21.8477 8.5 23.9062 10.5586 23.9062 13.1484C23.9062 14.7422 23.043 16.2695 21.5887 17.1328Z" fill="white"/>
+            </svg>
+            <input type="range" min="0" max="180" value="90" class="sliderInput" id="conicSensorSlider">
+            <p class="sliderValue" id="conicSensorValue"></p>
+        </div>
+        <div class="slider">
+            <input type="checkbox" class="checkbox" id="gsCheckBox">
+            <p>GS to Satellite Communication Threshold</p>
+            <svg class="question" width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 0C7.61016 0 0 7.61016 0 17C0 26.3898 7.61016 34 17 34C26.3898 34 34 26.3898 34 17C34 7.61016 26.3898 0 17 0ZM17 26.5625C15.8047 26.5625 14.875 25.6328 14.875 24.4375C14.875 23.2422 15.7449 22.3125 17 22.3125C18.1355 22.3125 19.125 23.2422 19.125 24.4375C19.125 25.6328 18.1355 26.5625 17 26.5625ZM21.5887 17.1328L18.5938 18.9922V19.125C18.5938 19.9883 17.8633 20.7188 17 20.7188C16.1367 20.7188 15.4062 19.9883 15.4062 19.125V18.0625C15.4062 17.5312 15.6719 17 16.2031 16.668L19.9883 14.4102C20.4531 14.1445 20.7188 13.6797 20.7188 13.1484C20.7188 12.3516 19.9949 11.6875 19.198 11.6875H15.8047C14.948 11.6875 14.3438 12.3516 14.3438 13.1484C14.3438 14.0117 13.6133 14.7422 12.75 14.7422C11.8867 14.7422 11.1562 14.0117 11.1562 13.1484C11.1562 10.5586 13.2148 8.5 15.7449 8.5H19.1383C21.8477 8.5 23.9062 10.5586 23.9062 13.1484C23.9062 14.7422 23.043 16.2695 21.5887 17.1328Z" fill="white"/>
+            </svg>
+            <input type="range" min="0" max="90" value="45" class="sliderInput" id="gsThreshSlider">
+            <p class="sliderValue" id="gsThreshValue"></p>
+        </div>
+        
     </div>
     <div class="walker">
         <div class="textHeader">
@@ -85,26 +139,23 @@
         </div>
         <label for="propDur">Propagation Duration</label>
         <input type="text" name="propDur" id="propDur" placeholder="Days">
-        <input type="text" name="calendarField" id="calendarField" placeholder="Enter a date">
+        <input type="datetime-local" value="2022-06-08T00:00:00"name="calendarField" id="calendarField" placeholder="Enter a date">
         <svg width="26" class="calendar" height="30" viewBox="0 0 26 30" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0.512451 27.9375C0.512451 28.5598 0.96669 29.0625 1.52893 29.0625H24.908C25.4702 29.0625 25.9244 28.5598 25.9244 27.9375V13.1719H0.512451V27.9375ZM24.908 3.46875H19.5714V1.21875C19.5714 1.06406 19.4571 0.9375 19.3173 0.9375H17.5385C17.3987 0.9375 17.2844 1.06406 17.2844 1.21875V3.46875H9.15252V1.21875C9.15252 1.06406 9.03817 0.9375 8.8984 0.9375H7.11957C6.9798 0.9375 6.86545 1.06406 6.86545 1.21875V3.46875H1.52893C0.96669 3.46875 0.512451 3.97148 0.512451 4.59375V10.7812H25.9244V4.59375C25.9244 3.97148 25.4702 3.46875 24.908 3.46875Z" fill="black"/>
         </svg>
     </div>
+
     <div class="groundStations">
-        <label for="groundStationField">Ground Stations</label>
-        <textarea placeholder="(45, 123) , (123,78)" name="groundStationField" id="groundStationField" cols="30" rows="10"></textarea>
+        <div class="title">
+            <label for="groundStationField">Ground Stations</label>
+            <svg class="question" width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17 0C7.61016 0 0 7.61016 0 17C0 26.3898 7.61016 34 17 34C26.3898 34 34 26.3898 34 17C34 7.61016 26.3898 0 17 0ZM17 26.5625C15.8047 26.5625 14.875 25.6328 14.875 24.4375C14.875 23.2422 15.7449 22.3125 17 22.3125C18.1355 22.3125 19.125 23.2422 19.125 24.4375C19.125 25.6328 18.1355 26.5625 17 26.5625ZM21.5887 17.1328L18.5938 18.9922V19.125C18.5938 19.9883 17.8633 20.7188 17 20.7188C16.1367 20.7188 15.4062 19.9883 15.4062 19.125V18.0625C15.4062 17.5312 15.6719 17 16.2031 16.668L19.9883 14.4102C20.4531 14.1445 20.7188 13.6797 20.7188 13.1484C20.7188 12.3516 19.9949 11.6875 19.198 11.6875H15.8047C14.948 11.6875 14.3438 12.3516 14.3438 13.1484C14.3438 14.0117 13.6133 14.7422 12.75 14.7422C11.8867 14.7422 11.1562 14.0117 11.1562 13.1484C11.1562 10.5586 13.2148 8.5 15.7449 8.5H19.1383C21.8477 8.5 23.9062 10.5586 23.9062 13.1484C23.9062 14.7422 23.043 16.2695 21.5887 17.1328Z" fill="white"/>
+            </svg>
+        <br>
+        </div>
+        <textarea value="(10 10), (40 40), (60 60), (100 100), (150 150)" placeholder="[[10,10],[40,40]]" name="groundStationField" id="groundStationField" cols="30" rows="10"></textarea>
     </div>
-    <button class="submit">Submit</button>
-    <script src="./js/viewer.js"></script>
-    <script>
-        var commThreshSlider = document.getElementById('commThreshSlider')
-        var commThreshValue = document.getElementById('commThreshValue')
-
-        commThreshValue.innerHTML = commThreshSlider.value
-
-        commThreshSlider.oninput = () => {
-            commThreshValue.innerHTML = commThreshSlider.value
-        }
-    </script>
+    <div class="submit" id="submitButton">Submit</div>
+    <script src="./js/sliders.js"></script>
 </body>
 </html>

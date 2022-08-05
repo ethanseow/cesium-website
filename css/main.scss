@@ -2,15 +2,11 @@ html{
     font-size:16px;
 }
 body {
-    margin:0 8rem;
-}
-.bg {
+    margin:0 auto;
     background-image: url('../images/background.png');
-    background-size: cover;
-    width:100%;
-    height:100%;
-    z-index: -999;
-    position:absolute;
+    background-size: 100% 100%;
+    max-width:1080px;
+    width:72.5%;
 }
 .header {
     display:grid;
@@ -44,20 +40,18 @@ body {
     margin:0 auto;
     margin-bottom:3em;
     padding:0.4rem;
-    width:75%;
     background-color: white;
     border-radius: 0.5rem;
 }
 
 .sliderParams{
-    width:75%;
     margin: 0 auto;
     .slider {
         display:grid;
         grid-template-areas: 
-        "title question ."
+        "title question checkbox"
         "slider slider sliderValue";
-        grid-template-columns: auto 1fr 1fr;
+        grid-template-columns: auto 1fr auto;
         grid-template-rows: 1fr 1fr;
         p {
             color: white;
@@ -71,13 +65,19 @@ body {
             align-self: center;
             margin-left:1.5em;
         }
-        input {
+        .sliderInput {
             grid-area: slider;
+        }
+        .checkbox {
+            grid-area: checkbox;
+            justify-self: right;
+            width:1.5em;
         }
         .sliderValue {
             color:white;
             font-size:1.5rem;
             grid-area:sliderValue;
+            justify-self: left;
         }
     }
 }
@@ -114,7 +114,7 @@ body {
     ;
     grid-template-columns: 1fr 1fr;
     column-gap: 1.5rem;
-    width:30%;
+    width:fit-content;
     margin:0 auto;
 
     .textHeader {
@@ -140,4 +140,33 @@ body {
         fill:white;
         justify-self: center;
     }
+}
+
+.groundStations {
+    /*
+    display:grid;
+    grid-template-areas:
+    "title question"
+    "textbox textbox"
+    ;
+    */
+    margin:0 auto;
+    width:fit-content;
+    //grid-template-columns: auto 1fr;
+
+    .title{
+        color:white;
+        margin:0 auto;
+        width:fit-content;
+        font-size:1.5rem;
+    }
+}
+.submit {
+    display:flex;
+    background-color: white;
+    padding:0.5em;
+    font-size:2rem;
+    width:fit-content;
+    margin:0 auto;
+    justify-content: center;   
 }

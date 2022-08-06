@@ -1,33 +1,116 @@
 import simple from './simple.js'
-const init = ()=>{
-    commThresh = document.getElementById('commThreshSlider')
+// helpers and constants
+const D = document;
 
-    conicSensor = document.getElementById('conicSensorSlider')
+let $commThresh = D.getElementById('commThreshSlider')
+let $conicSensor = D.getElementById('conicSensorSlider')
+let $gsThresh = D.getElementById('gsThreshSlider')
 
-    gsThresh = document.getElementById('gsThreshSlider')
+let $IWalker = D.getElementById('IWalker')
+let $TWalker = D.getElementById('TWalker')
+let $PWalker = D.getElementById('PWalker')
+let $FWalker = D.getElementById('FWalker')
+let $AltWalker = D.getElementById('AltWalker')
 
-    IWalker = document.getElementById('IWalker')
-    TWalker = document.getElementById('TWalker')
-    PWalker = document.getElementById('PWalker')
-    FWalker = document.getElementById('FWalker')
-    AltWalker = document.getElementById('AltWalker')
-    propDur = document.getElementById('propDur')
-    calendarField = document.getElementById('calendarField')
+let $propDur = D.getElementById('propDur')
+let $calendarField = D.getElementById('calendarField')
 
-    groundStationField = document.getElementById('groundStationField')
+let $groundStationField = D.getElementById('groundStationField')
 
-    commCheckBox = document.getElementById('commCheckBox')
-    conicCheckBox = document.getElementById('conicCheckBox')
-    gsCheckBox = document.getElementById('gsCheckBox')
-    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhZDJlZjUzOC05NTk5LTRlNjEtYjQzZS00YWM5N2ZiYWIyNDUiLCJpZCI6OTc5ODQsImlhdCI6MTY1NTQ4NDU5OX0.kwtnbKrsGyQq2bq1C0st-oyXj8yBPhS42LBliNP-F14'
-    viewer = new Cesium.Viewer("cesiumContainer", {
-            shouldAnimate: true,
-    })    
-    const defaultDataSource = Cesium.CzmlDataSource.load(simple)
-    viewer.dataSources.add(
-        defaultDataSource
-    );
+let $commCheckBox = D.getElementById('commCheckBox')
+let $conicCheckBox = D.getElementById('conicCheckBox')
+let $gsCheckBox = D.getElementById('gsCheckBox')
+
+let $submitButton = D.getElementById('submitButton')
+
+
+Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhZDJlZjUzOC05NTk5LTRlNjEtYjQzZS00YWM5N2ZiYWIyNDUiLCJpZCI6OTc5ODQsImlhdCI6MTY1NTQ4NDU5OX0.kwtnbKrsGyQq2bq1C0st-oyXj8yBPhS42LBliNP-F14'
+let viewer = new Cesium.Viewer("cesiumContainer", {
+        shouldAnimate: true,
+})
+const defaultDataSource = Cesium.CzmlDataSource.load(simple)
+
+const parseGroundStations = (text) => {
+    const regex = /[-0-9]+(\.)?[-0-9]+/g
+    const coords = text.match(regex)
+    let ret = []
+    for(let i = 0; i < coords.length;i +=2 ){
+        ret.push([parseInt(coords[i]),parseInt(coords[i+1])])
+    }
+    return ret
 }
+
+
+
+// application state
+
+// getters and setters
+const getCommThreshValue = () => parseInt($commThresh.value)
+const getConicSensorValue = () => parseInt($conicSensor.value)
+const getGsThreshValue = () => parseInt($gsThresh.value)
+const getIWalkerValue = () => parseInt($IWalker.value)
+const getTWalkerValue = () => parseInt($TWalker.value)
+const getPWalkerValue = () => parseInt($PWalker.value)
+const getFWalkerValue = () => parseInt($FWalker.value)
+const getAltWalkerValue = () => parseInt($AltWalker.value)
+const getPropDur = () => parseInt($propDur.value)
+const getCalendarField = () => $calendarField.value
+const getGroundStationField = () => $groundStationField.value
+const isCommChecked = () => $commCheckBox.checked
+const isConicChecked = () => $conicCheckBox.checked
+const isGSChecked = () => $gsCheckBox.checked
+
+// event handlers and related functions
+const generateJson = () => {
+    const groundStationsText = getGroundStationField()
+    const groundStations = parseGroundStations(groundStationsText)
+    let IWalker = getIWalkerValue()
+    let TWalker = getTWalkerValue()
+    let PWalker = getPWalkerValue()
+    let FWalker = getFWalkerValue()
+    let AltWalker = getAltWalkerValue()
+    let propDur = getPropDur()
+    let calendarField = getCalendarField()
+    let commThresh = isCommChecked() && getCommThreshValue()
+    let gsThresh = isGSChecked() && getGsThreshValue()
+    let conicSensor = isConicChecked() && getConicSensorValue()
+    let json = {
+        i:IWalker,
+        t:TWalker,
+        p:PWalker,
+        f:FWalker,
+        alt:AltWalker,
+        prop_dur:propDur,
+        time:calendarField,
+        dist_threshold:commThresh,
+        elev_threshold:gsThresh,
+        conicSensorAngle:conicSensor,
+        GS_pos:groundStations
+    }
+    return json
+}
+
+const checkAllFields = () => {
+    
+}
+
+const delay = async (ms) => {
+    return await new Promise(resolve => setTimeout(resolve,ms))
+}
+
+// event handler bindings
+
+
+// initial setup
+viewer.dataSources.add(
+    defaultDataSource
+);
+
+console.log(getCommThreshValue())
+
+
+
+
 
 
 
@@ -72,9 +155,6 @@ $(document).ready(() => {
     propDur.value ="1"
     groundStationField.value = '[[10,10],[40,40],[60,60],[100,100],[150,150]]'
 })
-async function delay(ms) {
-  return await new Promise(resolve => setTimeout(resolve, ms));
-}
 const onSubmit = async(viewer) => {
     console.log(helloworld)
     

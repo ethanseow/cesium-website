@@ -9,8 +9,8 @@
     <script src="https://cesium.com/downloads/cesiumjs/releases/1.92/Build/Cesium/Cesium.js"></script>
     <link href="https://cesium.com/downloads/cesiumjs/releases/1.92/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <!--<script src="./js/onload.js" type="module"></script>-->
-    <script>
+    <script src="./js/onload.js" type="module" defer></script>
+    <!---<script>
         const init = ()=>{
     commThresh = document.getElementById('commThreshSlider')
 
@@ -40,10 +40,10 @@
         defaultDataSource
     );
 }
-    </script>
+    </script>-->
 </head>
 
-<body onload="init();">
+<body>
     <div class="bg"></div>
     <div class="header">
         <svg class="logo" width="302" height="97" viewBox="0 0 302 97" fill="none" xmlns="http://www.w3.org/2000/svg">

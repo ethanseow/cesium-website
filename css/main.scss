@@ -170,3 +170,21 @@ body {
     margin:0 auto;
     justify-content: center;   
 }
+#cesiumContainer {
+    position:relative;
+    .loading {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        p {
+            font-size: 5rem;
+        }
+        height: 97.2%;
+        position:absolute;
+        z-index:999;
+        opacity: 0.9;
+        background-color: white;
+        width:98.9%;
+    }
+    
+}

@@ -2,6 +2,8 @@ import simple from './simple.js'
 // helpers and constants
 const D = document;
 
+let $loading = D.getElementById('loadingScreen')
+
 let $commThresh = D.getElementById('commThreshSlider')
 let $conicSensor = D.getElementById('conicSensorSlider')
 let $gsThresh = D.getElementById('gsThreshSlider')
@@ -43,6 +45,7 @@ const parseGroundStations = (text) => {
 
 
 // application state
+let isLoading = false
 
 // getters and setters
 const getCommThreshValue = () => parseInt($commThresh.value)
@@ -71,9 +74,18 @@ const generateJson = () => {
     let AltWalker = getAltWalkerValue()
     let propDur = getPropDur()
     let calendarField = getCalendarField()
-    let commThresh = isCommChecked() && getCommThreshValue()
-    let gsThresh = isGSChecked() && getGsThreshValue()
-    let conicSensor = isConicChecked() && getConicSensorValue()
+    let commThresh = getCommThreshValue()
+    let gsThresh = getGsThreshValue()
+    let conicSensor = getConicSensorValue()
+    if(!isCommChecked){
+        commThresh = null
+    }
+    if(!isGSChecked){
+        gsThresh = null
+    }
+    if(!isConicChecked){
+        conicSensor = null
+    }
     let json = {
         i:IWalker,
         t:TWalker,
@@ -90,129 +102,49 @@ const generateJson = () => {
     return json
 }
 
-const checkAllFields = () => {
-    
+const acceptableWalkerFields = () => {
+    let IWalker = getIWalkerValue()
+    let TWalker = getTWalkerValue()
+    let PWalker = getPWalkerValue()
+    let FWalker = getFWalkerValue()
+    let AltWalker = getAltWalkerValue()
+    return !([IWalker,TWalker,PWalker,FWalker,AltWalker].some((elem)=> elem === NaN))
+}
+
+const acceptableGS = () => {
+    const groundStationsText = getGroundStationField()
+    const groundStations = parseGroundStations(groundStationsText)
+    return (isGSChecked && groundStations.length != 0)
 }
 
 const delay = async (ms) => {
     return await new Promise(resolve => setTimeout(resolve,ms))
 }
+const toggleLoading = () => {
+    isLoading = !isLoading
+    $loading.style.display = (isLoading ? 'flex':'none');
+}
+const onSubmit = async () => {
+    console.log(generateJson())
+    toggleLoading()
+    await delay(5000)
+    toggleLoading()
+}
 
 // event handler bindings
-
+$('#submitButton').on('click', async ()=>{
+    onSubmit()
+})
 
 // initial setup
 viewer.dataSources.add(
     defaultDataSource
 );
 
-console.log(getCommThreshValue())
-
-
-
-
-
-
-
-$(document).ready(() => {
-    console.log(simple)
-    var submitButton = $('#submitButton')
-    
-
-
-    submitButton.on('click',async ()=>{
-        onSubmit(viewer)
-    })
-    
-    /*
-    input_dict = {
-        'i': 60, 
-        't': 6, 
-        'p': 2, 
-        'f': 1, 
-        'alt': 600, 
-        'time': '2022-06-08T00:00:00', 
-        'prop_dur': 1, 
-        'dist_threshold': None, 
-        'elev_threshold': None, 
-        'conicSensorAngle': None, 
-        'GS_pos': [[10, 10], [40, 40], [60, 60], [100, 100], [150, 150]]}
-    */
-    /*
-    var commThresh = document.getElementById('commThreshSlider')
-    commThresh.value = null
-
-    var conicSensor = document.getElementById('conicSensorSlider')
-    conicSensor.value = null
-    var gsThresh = document.getElementById('gsThreshSlider')
-    gsThresh.value = null
-    */
-    IWalker.value = "60"
-    TWalker.value = "6"
-    PWalker.value = "2"
-    FWalker.value = "1"
-    AltWalker.value = "600"
-    propDur.value ="1"
-    groundStationField.value = '[[10,10],[40,40],[60,60],[100,100],[150,150]]'
-})
-const onSubmit = async(viewer) => {
-    console.log(helloworld)
-    
-
-
-
-    const parseGroundStations = (text) => {
-        const regex = /[-0-9]+(\.)?[-0-9]+/g
-        const coords = text.match(regex)
-        let ret = []
-        for(let i = 0; i < coords.length;i +=2 ){
-            ret.push([parseInt(coords[i]),parseInt(coords[i+1])])
-        }
-        return ret
-    }
-    groundStationField = parseGroundStations(groundStationField)
-    // no walker params, exit
-    if (IWalker == '' || TWalker == '' || PWalker == '' || FWalker == '' || AltWalker == ''){
-        // alert the fields that have not been filled out
-        alert('You did not fill out all the fields')
-        return
-    }
-    commThresh = parseInt(commThresh)
-    conicSensor = parseInt(conicSensor)
-    gsThresh = parseInt(gsThresh)
-    IWalker = parseInt(IWalker)
-    TWalker = parseInt(TWalker)
-    PWalker = parseInt(PWalker)
-    FWalker = parseInt(FWalker)
-    AltWalker = parseInt(AltWalker)
-    propDur = parseInt(propDur)
-    if(!commCheckBox){
-        commThresh = null
-    }
-    if(!gsCheckBox){
-        gsThresh = null
-    }
-    if(!conicCheckBox){
-        conicCheckBox = null
-    }
-    const params = {
-        i:IWalker,
-        t:TWalker,
-        p:PWalker,
-        f:FWalker,
-        alt:AltWalker,
-        prop_dur:propDur,
-        time:calendarField,
-        dist_threshold:commThresh,
-        elev_threshold:gsThresh,
-        conicSensorAngle:conicSensor,
-        GS_pos:groundStationField
-    }   
-    document.getElementById('submitButton').innerHTML = 'waiting'
-    await delay(5000)
-    document.getElementById('submitButton').innerHTML = 'Submit'
-}
-
-const setLoading = (isLoading) => {
-
-}
+$IWalker.value = "60"
+$TWalker.value = "6"
+$PWalker.value = "2"
+$FWalker.value = "1"
+$AltWalker.value = "600"
+$propDur.value ="1"
+$groundStationField.value = '[[10,10],[40,40],[60,60],[100,100],[150,150]]'

@@ -35,7 +35,27 @@ body {
     margin:0.5em 0;
     font-size: 5rem;
     color:white;
+    width:fit-content;
+    .line-1{
+        margin:0;
+        border-right: 3px solid rgba(255,255,255,.75);
+        white-space: nowrap;
+        overflow: hidden; 
+    }
+
+    
+    .text{
+            animation:
+            blinkTextCursor 1000ms steps(23) infinite normal;
+    }
+    @keyframes blinkTextCursor{
+    from{border-right-color: rgba(255, 255, 255, 1);}
+    to{border-right-color: transparent;}
+    }
+    
 }
+
+
 #cesiumContainer {
     margin:0 auto;
     margin-bottom:3em;
@@ -101,6 +121,9 @@ body {
                 width:2em;
             }
         }
+        #hiddenSubmit {
+            display:none;
+        }
     }
 }
 
@@ -143,6 +166,7 @@ body {
 }
 
 .groundStations {
+
     /*
     display:grid;
     grid-template-areas:
@@ -160,7 +184,11 @@ body {
         width:fit-content;
         font-size:1.5rem;
     }
+    textarea{
+        border: 0px solid white;
+    }
 }
+
 .submit {
     display:flex;
     background-color: white;
@@ -184,6 +212,19 @@ body {
         z-index:999;
         opacity: 0.9;
         background-color: white;
+        width:98.9%;
+    }
+    .error {
+        display: none;
+        p {
+            font-size: 2rem;
+            margin-left:2%;
+        }
+        height: 97.2%;
+        position:absolute;
+        z-index:999;
+        opacity: 0.9;
+        background-color: lightsalmon;
         width:98.9%;
     }
     

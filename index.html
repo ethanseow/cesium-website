@@ -10,37 +10,6 @@
     <link href="https://cesium.com/downloads/cesiumjs/releases/1.92/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="./js/onload.js" type="module" defer></script>
-    <!---<script>
-        const init = ()=>{
-    commThresh = document.getElementById('commThreshSlider')
-
-    conicSensor = document.getElementById('conicSensorSlider')
-
-    gsThresh = document.getElementById('gsThreshSlider')
-
-    IWalker = document.getElementById('IWalker')
-    TWalker = document.getElementById('TWalker')
-    PWalker = document.getElementById('PWalker')
-    FWalker = document.getElementById('FWalker')
-    AltWalker = document.getElementById('AltWalker')
-    propDur = document.getElementById('propDur')
-    calendarField = document.getElementById('calendarField')
-
-    groundStationField = document.getElementById('groundStationField')
-
-    commCheckBox = document.getElementById('commCheckBox')
-    conicCheckBox = document.getElementById('conicCheckBox')
-    gsCheckBox = document.getElementById('gsCheckBox')
-    Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhZDJlZjUzOC05NTk5LTRlNjEtYjQzZS00YWM5N2ZiYWIyNDUiLCJpZCI6OTc5ODQsImlhdCI6MTY1NTQ4NDU5OX0.kwtnbKrsGyQq2bq1C0st-oyXj8yBPhS42LBliNP-F14'
-    viewer = new Cesium.Viewer("cesiumContainer", {
-            shouldAnimate: true,
-    })    
-    const defaultDataSource = Cesium.CzmlDataSource.load(simple)
-    viewer.dataSources.add(
-        defaultDataSource
-    );
-}
-    </script>-->
 </head>
 
 <body>
@@ -65,10 +34,12 @@
 
     </div>
     <div class="text-animation">
-        Visualize the possibilities
+        <p class="line-1 text" id="demo">
+        </p>
     </div>
     <div id="cesiumContainer" class="fullSize">
         <div id='loadingScreen' class="loading"><p>Loading...</p></div>
+        <div id="errorScreen" class="error"><p id="errorMessage">You have the following errors:</p></div>
     </div>
         <div class="sliderParams">
         <div class="slider">
@@ -107,28 +78,29 @@
                 <path d="M17 0C7.61016 0 0 7.61016 0 17C0 26.3898 7.61016 34 17 34C26.3898 34 34 26.3898 34 17C34 7.61016 26.3898 0 17 0ZM17 26.5625C15.8047 26.5625 14.875 25.6328 14.875 24.4375C14.875 23.2422 15.7449 22.3125 17 22.3125C18.1355 22.3125 19.125 23.2422 19.125 24.4375C19.125 25.6328 18.1355 26.5625 17 26.5625ZM21.5887 17.1328L18.5938 18.9922V19.125C18.5938 19.9883 17.8633 20.7188 17 20.7188C16.1367 20.7188 15.4062 19.9883 15.4062 19.125V18.0625C15.4062 17.5312 15.6719 17 16.2031 16.668L19.9883 14.4102C20.4531 14.1445 20.7188 13.6797 20.7188 13.1484C20.7188 12.3516 19.9949 11.6875 19.198 11.6875H15.8047C14.948 11.6875 14.3438 12.3516 14.3438 13.1484C14.3438 14.0117 13.6133 14.7422 12.75 14.7422C11.8867 14.7422 11.1562 14.0117 11.1562 13.1484C11.1562 10.5586 13.2148 8.5 15.7449 8.5H19.1383C21.8477 8.5 23.9062 10.5586 23.9062 13.1484C23.9062 14.7422 23.043 16.2695 21.5887 17.1328Z" fill="white"/>
             </svg>
         </div>
-        <div class="walkerInputs">
-            <div class="walkerInput">
-                <label for="IWalker">I</label>
-                <input type="text" id="IWalker" name="IWalker">
-            </div>
-            <div class="walkerInput">
-                <label for="TWalker">T</label>
-                <input type="text" id="TWalker" name="TWalker">
-            </div>
-            <div class="walkerInput">
-                <label for="PWalker">P</label>
-                <input type="text" id="PWalker" name="PWalker">
-            </div>
-            <div class="walkerInput">
-                <label for="FWalker">F</label>
-                <input type="text" id="FWalker" name="FWalker">
-            </div>
-            <div class="walkerInput">
-                <label for="AltWalker">Alt</label>
-                <input type="text" id="AltWalker" name="AltWalker">
-            </div>
-        </div>
+            <form class="walkerInputs">
+                <div class="walkerInput">
+                    <label for="IWalker">I</label>
+                    <input type="text" id="IWalker" name="IWalker" required>
+                </div>
+                <div class="walkerInput required">
+                    <label for="TWalker">T</label>
+                    <input type="text" id="TWalker" name="TWalker">
+                </div>
+                <div class="walkerInput required">
+                    <label for="PWalker">P</label>
+                    <input type="text" id="PWalker" name="PWalker">
+                </div>
+                <div class="walkerInput required">
+                    <label for="FWalker">F</label>
+                    <input type="text" id="FWalker" name="FWalker">
+                </div>
+                <div class="walkerInput required">
+                    <label for="AltWalker">Alt</label>
+                    <input type="text" id="AltWalker" name="AltWalker">
+                </div>
+                <input type="submit" id="hiddenSubmit">
+            </form>
     </div>
     <div class="epoch">
         <div class="textHeader">

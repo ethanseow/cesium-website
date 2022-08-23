@@ -146,7 +146,6 @@ const delay = async (ms) => {
 }
 const toggleLoading = () => {
     isLoading = !isLoading
-    display()
 }
 
 const getCzmlFromJson = async (json) => {
@@ -235,6 +234,7 @@ const onSubmit = async () => {
     if(hasErrors){ return }
     viewer.dataSources.removeAll()
     toggleLoading()
+    display()
     await delay(2000);
     /*
     const json = generateJson()
@@ -243,6 +243,7 @@ const onSubmit = async () => {
     await viewer.dataSources.add(data)
     */
     toggleLoading()
+    display()
 }
 
 const display = () => {
@@ -260,7 +261,7 @@ const display = () => {
             walkerInput.style.border = '1px solid red';
         }        
     }else{
-        const inputFields = $('.walkerInputs .walkerInput inputs')
+        const inputFields = $('.walkerInputs .walkerInput input')
         for(let input of inputFields){
             input.style.border = '0px solid red'
         }
@@ -272,12 +273,22 @@ const display = () => {
 
     $loading.style.display = (isLoading ? 'flex':'none');
     $errorScreen.style.display = (hasErrors ? 'flex' : 'none')
+
+    
+}
+
+const toggleHelper = () => {
+    
 }
 
 // event handler bindings
 $('#submitButton').on('click', ()=>{
     onSubmit()
     display()
+})
+
+$('#ISQuestion').on('click',()=> {
+    toggleHelper()
 })
 
 $('.walkerInputs').on('submit',(e)=>e.preventDefault())

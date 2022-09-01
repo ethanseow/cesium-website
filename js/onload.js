@@ -277,9 +277,7 @@ const display = () => {
     
 }
 
-const toggleHelper = () => {
-    
-}
+const toggleHelper = () => {}
 
 // event handler bindings
 $('#submitButton').on('click', ()=>{

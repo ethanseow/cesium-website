@@ -173,6 +173,13 @@ body {
   justify-self: center;
 }
 
+.miscInputs {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .groundStations {
   /*
   display:grid;
@@ -181,10 +188,7 @@ body {
   "textbox textbox"
   ;
   */
-  margin: 0 auto;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
+  margin-right: 1.5em;
 }
 .groundStations .title {
   color: white;
